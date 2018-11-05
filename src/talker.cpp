@@ -46,8 +46,7 @@
 /**
  * Default string message yet to be modified by the user
  */
-
-std::string defaultMessage = "This is Sai";
+extren std::string defaultMessage = "This is Sai";
 
 /**
  * @brief  Callback function for changeText Service
@@ -69,7 +68,6 @@ bool changeMessage(beginner_tutorials::changeText::Request &req,
  * This tutorial demonstrates simple sending of messages over the ROS system.
  */
 int main(int argc, char **argv) {
-
   /**
    * The ros::init() function needs to see argc and argv so that it can perform
    * any ROS arguments and name remapping that were provided at the command line.
@@ -92,25 +90,21 @@ int main(int argc, char **argv) {
   }
 
   if (loopFreq > 0) {
-    ROS_DEBUG_STREAM("loop operating at frequency of: "<<loopFreq);
-}
-
-else if (loopFreq < 0) {
+    ROS_DEBUG_STREAM("loop operating at frequency of: "<< loopFreq);
+  } else if (loopFreq < 0) {
     ROS_ERROR_STREAM("The input frequency cannot be negative");
 
     ROS_WARN_STREAM("Setting to default frequency of 10Hz");
 
     // setting loopFreq to 10 hz
     loopFreq = 10;
-  }
+  } else if (loopFreq == 0) {
+    ROS_FATAL_STREAM("Input frequency cannot be 0Hz");
 
-else if (loopFreq == 0) {
-  ROS_FATAL_STREAM("Input frequency cannot be 0Hz");
+    ROS_WARN_STREAM("Setting to default frequency of 10Hz");
 
-  ROS_WARN_STREAM("Setting to default frequency of 10Hz");
-
-  // setting loopFreq back to 10Hz
-  loopFreq = 10;
+    // setting loopFreq back to 10Hz
+    loopFreq = 10;
 }
 
   /**
