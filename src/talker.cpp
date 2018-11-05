@@ -43,7 +43,18 @@
 #include "std_msgs/String.h"
 #include "beginner_tutorials/changeText.h"
 
+/**
+ * Default string message yet to be modified by the user
+ */
+
 std::string defaultMessage = "This is Sai";
+
+/**
+ * @brief  Callback function for changeText Service
+ * @param  req   The request data sent to service
+ * @param  res   The response by the service to the client
+ * @return bool
+ */
 
 bool changeMessage(beginner_tutorials::changeText::Request &req,
                    beginner_tutorials::changeText::Response &res) {
@@ -59,6 +70,20 @@ bool changeMessage(beginner_tutorials::changeText::Request &req,
  */
 int main(int argc, char **argv) {
 
+  /**
+   * The ros::init() function needs to see argc and argv so that it can perform
+   * any ROS arguments and name remapping that were provided at the command line.
+   * For programmatic remappings you can use a different version of init() which takes
+   * remappings directly, but for most command-line programs, passing argc and argv is
+   * the easiest way to do it.  The third argument to init() is the name of the node.
+   *
+   * You must call one of the versions of ros::init() before using any other
+   * part of the ROS system.
+   */
+
+  ros::init(argc, argv, "talker");
+
+  // variable to store loop frequency and default is set to 10Hz
   int loopFreq = 10;
 
   if (argc > 1) {
@@ -75,8 +100,8 @@ else if (loopFreq < 0) {
 
     ROS_WARN_STREAM("Setting to default frequency of 10Hz");
 
-  // setting loopFreq to 10 hz
-  loopFreq = 10;
+    // setting loopFreq to 10 hz
+    loopFreq = 10;
   }
 
 else if (loopFreq == 0) {
@@ -87,18 +112,6 @@ else if (loopFreq == 0) {
   // setting loopFreq back to 10Hz
   loopFreq = 10;
 }
-  /**
-   * The ros::init() function needs to see argc and argv so that it can perform
-   * any ROS arguments and name remapping that were provided at the command line.
-   * For programmatic remappings you can use a different version of init() which takes
-   * remappings directly, but for most command-line programs, passing argc and argv is
-   * the easiest way to do it.  The third argument to init() is the name of the node.
-   *
-   * You must call one of the versions of ros::init() before using any other
-   * part of the ROS system.
-   */
-
-  ros::init(argc, argv, "talker");
 
   /**
    * NodeHandle is the main access point to communications with the ROS system.
