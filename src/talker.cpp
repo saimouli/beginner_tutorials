@@ -48,7 +48,7 @@ std::string defaultMessage = "This is Sai";
 bool changeMessage(beginner_tutorials::changeText::Request &req,
                    beginner_tutorials::changeText::Response &res) {
   defaultMessage = req.inputString;
-
+  ROS_WARN_STREAM("User changed the default string to");
   res.modifiedString = req.inputString;
 
   return true;
@@ -58,6 +58,35 @@ bool changeMessage(beginner_tutorials::changeText::Request &req,
  * This tutorial demonstrates simple sending of messages over the ROS system.
  */
 int main(int argc, char **argv) {
+
+  int loopFreq = 10;
+
+  if (argc > 1) {
+    // converts string argument to int
+    loopFreq = atoi(argv[1]);
+  }
+
+  if (loopFreq > 0) {
+    ROS_DEBUG_STREAM("loop operating at frequency of: "<<loopFreq);
+}
+
+else if (loopFreq < 0) {
+    ROS_ERROR_STREAM("The input frequency cannot be negative");
+
+    ROS_WARN_STREAM("Setting to default frequency of 10Hz");
+
+  // setting loopFreq to 10 hz
+  loopFreq = 10;
+  }
+
+else if (loopFreq == 0) {
+  ROS_FATAL_STREAM("Input frequency cannot be 0Hz");
+
+  ROS_WARN_STREAM("Setting to default frequency of 10Hz");
+
+  // setting loopFreq back to 10Hz
+  loopFreq = 10;
+}
   /**
    * The ros::init() function needs to see argc and argv so that it can perform
    * any ROS arguments and name remapping that were provided at the command line.
@@ -100,7 +129,7 @@ int main(int argc, char **argv) {
 
   auto server = n.advertiseService("changeText", changeMessage);
 
-  ros::Rate loop_rate(10);
+  ros::Rate loop_rate(loopFreq);
 
   /**
    * A count of how many messages we have sent. This is used to create
@@ -135,8 +164,6 @@ int main(int argc, char **argv) {
 
     ++count;
   }
-
-
   return 0;
 }
 
