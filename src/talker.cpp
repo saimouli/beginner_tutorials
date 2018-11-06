@@ -46,7 +46,7 @@
 /**
  * Default string message yet to be modified by the user
  */
-extren std::string defaultMessage = "This is Sai";
+extern std::string defaultMessage = "This is Sai";
 
 /**
  * @brief  Callback function for changeText Service
