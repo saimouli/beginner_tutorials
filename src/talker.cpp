@@ -67,6 +67,13 @@ bool changeMessage(beginner_tutorials::changeText::Request &req,
 /**
  * This tutorial demonstrates simple sending of messages over the ROS system.
  */
+
+/**
+ * @brief      main function
+ * @param      argc  The argc
+ * @param      argv  The argv
+ * @return     nothing
+ */
 int main(int argc, char **argv) {
   /**
    * The ros::init() function needs to see argc and argv so that it can perform
