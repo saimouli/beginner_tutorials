@@ -1,4 +1,9 @@
 <launch>
+  <env
+    
+   	name="ROSCONSOLE_CONFIG_FILE"
+   	value="$(find beginner_tutorials)/config/debuginfo.conf"
+  />
 
    <arg name = "frequency" default = "10" />
    <node
