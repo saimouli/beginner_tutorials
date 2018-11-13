@@ -38,7 +38,8 @@
  *found on the ros tutorial page
  */
 
-#include <sstream>
+#include <tf/transform_broadcaster.h>
+#include "talker.h"
 #include "ros/ros.h"
 #include "std_msgs/String.h"
 #include "beginner_tutorials/changeText.h"
@@ -46,7 +47,7 @@
 /**
  * Default string message yet to be modified by the user
  */
-extern std::string defaultMessage = "This is Sai";
+DefaultMessage mes;
 
 /**
  * @brief  Callback function for changeText Service
@@ -57,7 +58,7 @@ extern std::string defaultMessage = "This is Sai";
 
 bool changeMessage(beginner_tutorials::changeText::Request &req,
                    beginner_tutorials::changeText::Response &res) {
-  defaultMessage = req.inputString;
+  mes.defaultMessage = req.inputString;
   ROS_WARN_STREAM("User changed the default string to");
   res.modifiedString = req.inputString;
 
@@ -90,7 +91,8 @@ int main(int argc, char **argv) {
 
   // tf transform broadcaster object
   static tf::TransformBroadcaster br;
-  tf::Transform transform
+  tf::Transform transform;
+
 
   // variable to store loop frequency and default is set to 10Hz
   int loopFreq = 10;
@@ -162,7 +164,7 @@ int main(int argc, char **argv) {
     std_msgs::String msg;
 
     std::stringstream ss;
-    ss << defaultMessage << count;
+    ss << mes.defaultMessage << count;
     msg.data = ss.str();
 
     ROS_INFO("%s", msg.data.c_str());
@@ -198,4 +200,3 @@ int main(int argc, char **argv) {
   }
   return 0;
 }
-
