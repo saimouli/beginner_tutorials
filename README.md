@@ -136,10 +136,11 @@ testtalkerTest ... ok
 [ROSTEST]-----------------------------------------------------------------------
 
 [beginner_tutorials.rosunit-talkerTest/testServiceExsistance][passed]
+[beginner_tutorials.rosunit-talkerTest/testServiceMessageUpdate][passed]
 
 SUMMARY
  * RESULT: SUCCESS
- * TESTS: 1
+ * TESTS: 2
  * ERRORS: 0
  * FAILURES: 0
 
