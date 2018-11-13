@@ -1,13 +1,13 @@
-# ENPM808X - ROS Beginner Tutorial
+# ENPM808X - ROS Beginner Tutorial, TF, Unit Testing, Bag files
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 
 # Overview
 This repository contains basic ROS C++ subscriber and publisher taken from the ROS [website](http://wiki.ros.org/ROS/Tutorials/WritingPublisherSubscriber%28c%2B%2B%29). 
 - Takler (src/talker.cpp): publisher
 - Listener (src/listener.cpp): subscriber
+- TalkerTest (test/talkerTest.cpp): unit test 
 
-
-A launch file named ```week10HW.launch``` can be used to launch both talker and listener nodes 
+A launch file named ```week10HW.launch``` can be used to launch both talker, listener, and record messages in .bag format 
 
 A service message named ```changeText.srv``` is used to change the output string upon request by the client
 
@@ -30,7 +30,7 @@ cd ~/catkin_ws/
 catkin_make
 source devel/setup.bash
 cd src/
-git clone -b Week10_HW --single-branch https://github.com/saimouli/beginner_tutorials.git
+git clone -b Week11_HW --single-branch https://github.com/saimouli/beginner_tutorials.git
 cd ..
 catkin_make
 ```
@@ -90,3 +90,86 @@ To see the message log in real time, use rqt_console GUI by typing the following
 ```
 rqt_console
 ```
+
+# Inspecting TF Frames
+The talker.cpp publishes /tf topic of a non zero static tf frames called /talk with respect to the /world frame. 
+ 
+ 
+The translation of tf broadcaster is composed in polar coordinates using ros::time. This will make sure for certain range of time stamps there exists a unique values. To visualize the topics being produced type the following in a new terminal: 
+ 
+ ```
+ cd ~/catkin_ws
+ rosrun rqt_tf_tree rqt_tf_tree
+ ```
+To echo the values type the following in a new terminal: 
+ ```
+ cd ~/catkin_ws
+ rosrun tf tf_echo /world /talk
+ ```
+ 
+View_frames will produce a diagram of the broadcaster frame. While running the demo type the following in the new terminal
+ ```
+ cd ~/catkin_ws
+ rosrun tf view_frames
+ ```
+Above command will produce a pdf file which can be viewed in the catkin workspace. An example of this pdf can be viewed in the results folder
+ 
+# Running ROS Unit Tests
+To run the ros unit testing type the following in a new terminal 
+
+## Using Launch File 
+```
+cd ~/catkin_ws
+rostest beginner_tutorials talkerTest.launch
+```
+## Using catkin_make
+```
+cd ~/catkin_ws
+catkin_make run_tests beginner_tutorials
+```
+sample output
+```
+... logging to /home/viki/.ros/log/rostest-ubuntu-5582.log
+[ROSUNIT] Outputting test results to /home/viki/catkin_ws/build/test_results/beginner_tutorials/rostest-test_talkerTest.xml
+testtalkerTest ... ok
+
+[ROSTEST]-----------------------------------------------------------------------
+
+[beginner_tutorials.rosunit-talkerTest/testServiceExsistance][passed]
+
+SUMMARY
+ * RESULT: SUCCESS
+ * TESTS: 1
+ * ERRORS: 0
+ * FAILURES: 0
+
+rostest log file is in /home/viki/.ros/log/rostest-ubuntu-5582.log
+-- run_tests.py: verify result "/home/viki/catkin_ws/build/test_results/beginner_tutorials/rostest-test_talkerTest.xml"
+```
+
+# Playing bag files 
+A recorded ros bag file is located in the results folder. To play the ros bag file type the following commands: 
+
+In a new terminal 
+```
+roscore
+```
+
+Open another new terminal
+```
+cd ~/catkin_ws
+rosrun beginner_tutorials listener
+```
+
+In an another new terminal
+```
+cd ~/catkin_ws/src/beginner_tutorials/results
+rosbag play rostopicsRecord.bag
+```
+The /chatter messages that have been recorded can be viewed in the listner node 
+
+# Recording bag files with launch file 
+```
+roslaunch beginner_tutorials launchFile.launch rosbagEnable:=true
+```
+
