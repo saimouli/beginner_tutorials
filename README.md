@@ -48,11 +48,11 @@ To launch nodes, can either use a launch file or rosrun. Launch file will let us
 ## Using Launch File
 To use launch file type the following command in the terminal:
 ```
-roslaunch begineer_tutorials week10HW.launch
+roslaunch beginner_tutorials week10HW.launch
 ```
 User can change the frequency at which the loop operates by the following command;
 ```
-roslaunch begineer_tutorials week10HW.launch frequency:=7
+roslaunch beginner_tutorials week10HW.launch frequency:=7
 ```
 
 ## Using rosrun
@@ -170,6 +170,6 @@ The /chatter messages that have been recorded can be viewed in the listner node
 
 # Recording bag files with launch file 
 ```
-roslaunch beginner_tutorials launchFile.launch rosbagEnable:=true
+roslaunch beginner_tutorials week10HW.launch rosbagEnable:=true
 ```
 
