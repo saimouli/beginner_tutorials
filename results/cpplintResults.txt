@@ -1,8 +1,11 @@
 #cpplint results 
 
-./src/talker.cpp:58:  Is this a non-const reference? If so, make const or use a pointer: beginner_tutorials::changeText::Request &req  [runtime/references] [2]
-./src/talker.cpp:59:  Is this a non-const reference? If so, make const or use a pointer: beginner_tutorials::changeText::Response &res  [runtime/references] [2]
+./src/talker.cpp:59:  Is this a non-const reference? If so, make const or use a pointer: beginner_tutorials::changeText::Request &req  [runtime/references] [2]
+./src/talker.cpp:60:  Is this a non-const reference? If so, make const or use a pointer: beginner_tutorials::changeText::Response &res  [runtime/references] [2]
 Done processing ./src/talker.cpp
 Done processing ./src/listener.cpp
+Done processing ./test/main.cpp
+Done processing ./test/talkerTest.cpp
 Total errors found: 2
+
 
