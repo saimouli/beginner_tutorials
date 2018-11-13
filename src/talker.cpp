@@ -39,7 +39,7 @@
  */
 
 #include <tf/transform_broadcaster.h>
-#include "talker.h"
+#include "include/talker.h"
 #include "ros/ros.h"
 #include "std_msgs/String.h"
 #include "beginner_tutorials/changeText.h"
@@ -185,7 +185,7 @@ int main(int argc, char **argv) {
     tf::Quaternion q;
     q.setRPY(0, 0, 1);
 
-    //set rotation
+    // set rotation
     transform.setRotation(q);
 
     // broadcast the transform

@@ -51,12 +51,12 @@
 TEST(testTalkerNode, testServiceExsistance) {
   // Create node handle
   ros::NodeHandle n;
+
   // Register the client to the service
   auto client = n.serviceClient<beginner_tutorials::changeText>("changeText");
-  // Check if the service exist
-  //bool exists(client.waitForExistence(ros::Duration(5)));
+
+  // bool exists(client.waitForExistence(ros::Duration(5)));
   EXPECT_TRUE(client.waitForExistence(ros::Duration(5)));
 }
-
 
 
