@@ -88,6 +88,10 @@ int main(int argc, char **argv) {
 
   ros::init(argc, argv, "talker");
 
+  // tf transform broadcaster object
+  static tf::TransformBroadcaster br;
+  tf::Transform transform
+
   // variable to store loop frequency and default is set to 10Hz
   int loopFreq = 10;
 
@@ -171,6 +175,20 @@ int main(int argc, char **argv) {
      */
 
     chatter_pub.publish(msg);
+
+    // set translation
+    transform.setOrigin(
+        tf::Vector3(cos(ros::Time::now().toSec()),
+                    sin(ros::Time::now().toSec()), 0.0));
+    tf::Quaternion q;
+    q.setRPY(0, 0, 1);
+
+    //set rotation
+    transform.setRotation(q);
+
+    // broadcast the transform
+    br.sendTransform(
+        tf::StampedTransform(transform, ros::Time::now(), "world", "talk"));
 
     ros::spinOnce();
 
