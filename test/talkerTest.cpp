@@ -59,4 +59,28 @@ TEST(testTalkerNode, testServiceExsistance) {
   EXPECT_TRUE(client.waitForExistence(ros::Duration(5)));
 }
 
+/**
+ * @brief      Tests if changeText service can replace the text 
+ * @param      testTalkerNode            gtest framework
+ * @param      testServiceMessageUpdate  Name of the test
+ */
+TEST(testTalkerNode, testServiceMessageUpdate) {
+  // Create node handle
+  ros::NodeHandle n;
+
+  // Register the client to the service
+  auto client = n.serviceClient<beginner_tutorials::changeText>("changeText");
+  // Initialize the service to srv object
+  beginner_tutorials::changeText srv;
+
+  // change the input string
+  srv.request.inputString = "testMessage";
+
+  // resquest the server
+  client.call(srv.request, srv.response);
+
+  // tests to see if the input is equal to output
+  EXPECT_STREQ("testMessage", srv.response.modifiedString.c_str());
+}
+
 
